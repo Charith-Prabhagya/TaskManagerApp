@@ -45,6 +45,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Add Repository
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Add controllers
 builder.Services.AddControllers();
