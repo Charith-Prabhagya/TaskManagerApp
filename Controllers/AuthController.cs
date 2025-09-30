@@ -30,7 +30,8 @@ namespace TaskManagerApp.Controllers
             var user = new User
             {
                 Username = request.Username,
-                PasswordHash = hashedPassword
+                PasswordHash = hashedPassword,
+                Role = request.Role
             };
 
             await _userRepo.AddUserAsync(user);
@@ -44,7 +45,7 @@ namespace TaskManagerApp.Controllers
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return Unauthorized("Invalid credentials");
 
-            var token = _jwtService.GenerateToken(user.Username);
+            var token = _jwtService.GenerateToken(user.Username, user.Role);
             return Ok(new { Token = token });
         }
     }

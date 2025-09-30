@@ -18,6 +18,7 @@ namespace TaskManagerApp.Controllers
             _repository = repository;
         }
 
+        [Authorize(Roles = "User,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
@@ -25,6 +26,7 @@ namespace TaskManagerApp.Controllers
             return Ok(tasks);
         }
 
+        [Authorize(Roles = "User,Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTask(int id)
         {
@@ -33,6 +35,7 @@ namespace TaskManagerApp.Controllers
             return Ok(task);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateTask(TaskItem task)
         {
@@ -41,6 +44,7 @@ namespace TaskManagerApp.Controllers
             return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTask(int id, TaskItem task)
         {
@@ -50,6 +54,7 @@ namespace TaskManagerApp.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
